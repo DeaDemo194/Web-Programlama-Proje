@@ -2,10 +2,12 @@
 
 namespace Web_Programlama.Models
 {
-    public class Route
+    public class Plane
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; } = null!;
+
+
     }
 }

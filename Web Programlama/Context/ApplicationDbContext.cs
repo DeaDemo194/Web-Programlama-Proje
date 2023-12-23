@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Web_Programlama.Models;
 
 namespace Web_Programlama.Context
 {
@@ -12,6 +13,7 @@ namespace Web_Programlama.Context
 
 
         public DbSet<Models.Route> Routes { get; set; }
+        public DbSet<Plane> Planes { get; set; }
 
 
 
