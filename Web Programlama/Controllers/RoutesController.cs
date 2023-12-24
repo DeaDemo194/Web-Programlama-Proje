@@ -17,6 +17,8 @@ namespace Web_Programlama.Controllers
         public RoutesController(ApplicationDbContext context)
         {
             _context = context;
+            
+
         }
 
         // GET: Routes
