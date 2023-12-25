@@ -7,7 +7,7 @@ namespace Web_Programlama.Models
         [Key]
         public int Id { get; set; }
         public int SeatNumber { get; set; }
-        public string Plane { get; set; } = null!;
+        public Plane Plane { get; set; } = null!;
         public bool IsEmpty { get; set; }
     }
 }
