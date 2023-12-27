@@ -11,6 +11,7 @@ namespace Web_Programlama.Models
         public string Company { get; set; } = null!;
 
         public int SeatCount { get; set; }
+
         public virtual List<Seat> Seats { get; set; } = new List<Seat> ();
 
     }
