@@ -11,6 +11,6 @@ namespace Web_Programlama.Models
         public string From { get; set; } = null!;
 
         public string RouteName => $"{From} {" To "} {To}";
-
+        //
     }
 }
