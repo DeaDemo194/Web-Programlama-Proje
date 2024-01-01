@@ -9,10 +9,12 @@ namespace Web_Programlama.Models
         public int Id { get; set; }
         public string To { get; set; } = null!;
         public string From { get; set; } = null!;
-
-        public string RouteName => $"{From} {" To "} {To}";
         
+        public string RouteName => $"{From} {" To "} {To}";
+
+        public Plane? Plane { get; set; }
         //
         //
+
     }
 }

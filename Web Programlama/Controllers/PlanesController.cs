@@ -12,87 +12,87 @@ using Web_Programlama.Models;
 namespace Web_Programlama.Controllers
 {
     [Authorize]
-    public class RoutesController : Controller
+    public class PlanesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RoutesController(ApplicationDbContext context)
+        public PlanesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Routes
+        // GET: Planes
         public async Task<IActionResult> Index()
         {
-              return _context.Routes != null ? 
-                          View(await _context.Routes.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Routes'  is null.");
+              return _context.Planes != null ? 
+                          View(await _context.Planes.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Planes'  is null.");
         }
 
-        // GET: Routes/Details/5
+        // GET: Planes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Routes == null)
+            if (id == null || _context.Planes == null)
             {
                 return NotFound();
             }
 
-            var route = await _context.Routes
+            var plane = await _context.Planes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (route == null)
+            if (plane == null)
             {
                 return NotFound();
             }
 
-            return View(route);
+            return View(plane);
         }
 
-        // GET: Routes/Create
+        // GET: Planes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Routes/Create
+        // POST: Planes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,To,From")] Models.Route route)
+        public async Task<IActionResult> Create([Bind("Id,Name,Company,SeatCount,DidGetAppointed")] Plane plane)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(route);
+                _context.Add(plane);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(route);
+            return View(plane);
         }
 
-        // GET: Routes/Edit/5
+        // GET: Planes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Routes == null)
+            if (id == null || _context.Planes == null)
             {
                 return NotFound();
             }
 
-            var route = await _context.Routes.FindAsync(id);
-            if (route == null)
+            var plane = await _context.Planes.FindAsync(id);
+            if (plane == null)
             {
                 return NotFound();
             }
-            return View(route);
+            return View(plane);
         }
 
-        // POST: Routes/Edit/5
+        // POST: Planes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,To,From")] Models.Route route)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Company,SeatCount,DidGetAppointed")] Plane plane)
         {
-            if (id != route.Id)
+            if (id != plane.Id)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace Web_Programlama.Controllers
             {
                 try
                 {
-                    _context.Update(route);
+                    _context.Update(plane);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RouteExists(route.Id))
+                    if (!PlaneExists(plane.Id))
                     {
                         return NotFound();
                     }
@@ -117,49 +117,49 @@ namespace Web_Programlama.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(route);
+            return View(plane);
         }
 
-        // GET: Routes/Delete/5
+        // GET: Planes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Routes == null)
+            if (id == null || _context.Planes == null)
             {
                 return NotFound();
             }
 
-            var route = await _context.Routes
+            var plane = await _context.Planes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (route == null)
+            if (plane == null)
             {
                 return NotFound();
             }
 
-            return View(route);
+            return View(plane);
         }
 
-        // POST: Routes/Delete/5
+        // POST: Planes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Routes == null)
+            if (_context.Planes == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Routes'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Planes'  is null.");
             }
-            var route = await _context.Routes.FindAsync(id);
-            if (route != null)
+            var plane = await _context.Planes.FindAsync(id);
+            if (plane != null)
             {
-                _context.Routes.Remove(route);
+                _context.Planes.Remove(plane);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RouteExists(int id)
+        private bool PlaneExists(int id)
         {
-          return (_context.Routes?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Planes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

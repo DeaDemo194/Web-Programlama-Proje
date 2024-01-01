@@ -11,8 +11,9 @@ namespace Web_Programlama.Models
         public string Company { get; set; } = null!;
 
         public int SeatCount { get; set; }
+        public bool DidGetAppointed { get; set; } = false;
 
-        public virtual List<Seat> Seats { get; set; } = new List<Seat> ();
+        public virtual List<Seat>? Seats { get; set; }
 
     }
 }

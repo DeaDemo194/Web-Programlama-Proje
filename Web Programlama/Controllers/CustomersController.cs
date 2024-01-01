@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,88 +10,87 @@ using Web_Programlama.Models;
 
 namespace Web_Programlama.Controllers
 {
-    [Authorize]
-    public class RoutesController : Controller
+    public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RoutesController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Routes
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-              return _context.Routes != null ? 
-                          View(await _context.Routes.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Routes'  is null.");
+              return _context.Customer != null ? 
+                          View(await _context.Customer.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Customer'  is null.");
         }
 
-        // GET: Routes/Details/5
+        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Routes == null)
+            if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var route = await _context.Routes
+            var customer = await _context.Customer
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (route == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(route);
+            return View(customer);
         }
 
-        // GET: Routes/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Routes/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,To,From")] Models.Route route)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Email,Gender")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(route);
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(route);
+            return View(customer);
         }
 
-        // GET: Routes/Edit/5
+        // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Routes == null)
+            if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var route = await _context.Routes.FindAsync(id);
-            if (route == null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(route);
+            return View(customer);
         }
 
-        // POST: Routes/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,To,From")] Models.Route route)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Email,Gender")] Customer customer)
         {
-            if (id != route.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -101,12 +99,12 @@ namespace Web_Programlama.Controllers
             {
                 try
                 {
-                    _context.Update(route);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RouteExists(route.Id))
+                    if (!CustomerExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -117,49 +115,49 @@ namespace Web_Programlama.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(route);
+            return View(customer);
         }
 
-        // GET: Routes/Delete/5
+        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Routes == null)
+            if (id == null || _context.Customer == null)
             {
                 return NotFound();
             }
 
-            var route = await _context.Routes
+            var customer = await _context.Customer
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (route == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(route);
+            return View(customer);
         }
 
-        // POST: Routes/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Routes == null)
+            if (_context.Customer == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Routes'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Customer'  is null.");
             }
-            var route = await _context.Routes.FindAsync(id);
-            if (route != null)
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer != null)
             {
-                _context.Routes.Remove(route);
+                _context.Customer.Remove(customer);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RouteExists(int id)
+        private bool CustomerExists(int id)
         {
-          return (_context.Routes?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Customer?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

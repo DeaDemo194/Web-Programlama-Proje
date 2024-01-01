@@ -14,6 +14,7 @@ namespace Web_Programlama.Context
 
         public DbSet<Models.Route> Routes { get; set; }
         public DbSet<Plane> Planes { get; set; }
+        public DbSet<Web_Programlama.Models.Customer>? Customer { get; set; }
 
 
 
